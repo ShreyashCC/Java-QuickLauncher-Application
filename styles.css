@@ -1,0 +1,15 @@
+.root {
+    -fx-background-color: #2b2b2b; /* Graphite background */
+}
+
+.list-view {
+    -fx-background-color: #3c3c3c; /* Darker background for ListView */
+    -fx-text-fill: #ffffff; /* White text */
+    -fx-border-color: #4f4f4f; /* Optional: border color to match theme */
+    -fx-border-width: 1px; /* Optional: border width */
+}
+
+.label {
+    -fx-text-fill: #ffffff; /* White text */
+    -fx-padding: 5px; /* Optional: padding */
+}
