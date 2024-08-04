@@ -1,15 +1,32 @@
 .root {
-    -fx-background-color: #2b2b2b; /* Graphite background */
+    -fx-background-color: #2c2c2c; /* Graphite background */
+    -fx-text-fill: #ffffff; /* White text */
 }
 
 .list-view {
-    -fx-background-color: #3c3c3c; /* Darker background for ListView */
+    -fx-background-color: #3a3a3a; /* Gray background for the ListView */
+    -fx-border-color: #2c2c2c; /* Border color matching the root background */
+}
+
+.list-cell {
+    -fx-font-size: 16px; /* Font size for options */
+    -fx-padding: 10px; /* Padding for list items */
+    -fx-background-color: #3a3a3a; /* Background for list items */
     -fx-text-fill: #ffffff; /* White text */
-    -fx-border-color: #4f4f4f; /* Optional: border color to match theme */
-    -fx-border-width: 1px; /* Optional: border width */
+}
+
+.list-cell:hover {
+    -fx-background-color: #555555; /* Darker gray on hover */
 }
 
 .label {
     -fx-text-fill: #ffffff; /* White text */
-    -fx-padding: 5px; /* Optional: padding */
+    -fx-font-size: 14px; /* Font size for labels */
+}
+
+.button {
+    -fx-background-color: #4a4a4a; /* Button background */
+    -fx-text-fill: #ffffff; /* White text */
+    -fx-padding: 10px; /* Padding for buttons */
+    -fx-font-size: 14px; /* Font size for buttons */
 }
