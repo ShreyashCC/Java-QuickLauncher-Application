@@ -35,7 +35,7 @@ public class Main extends Application {
         BorderPane root = new BorderPane();
         root.setCenter(new VBox(20, listView, managementPane, infoLabel));
 
-        Scene scene = new Scene(root, 600, 300);
+        Scene scene = new Scene(root, 550, 300);
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
         primaryStage.setTitle("Option Manager");
@@ -61,14 +61,18 @@ public class Main extends Application {
 
         TextField descField = new TextField();
         descField.setPromptText("Option Description");
+        descField.getStyleClass().add("text-field");
 
         TextField cmdField = new TextField();
         cmdField.setPromptText("Command (comma separated)");
+        cmdField.getStyleClass().add("text-field");
 
         TextField linkField = new TextField();
         linkField.setPromptText("Link (comma separated)");
+        linkField.getStyleClass().add("text-field");
 
         Button addOptionButton = new Button("Add Option");
+        addOptionButton.getStyleClass().add("button");
         addOptionButton.setOnAction(e -> {
             String desc = descField.getText();
             String cmds = cmdField.getText();
@@ -90,13 +94,17 @@ public class Main extends Application {
                 descField.clear();
                 cmdField.clear();
                 linkField.clear();
+                addOptionStage.close();
             }
         });
 
         addOptionPane.getChildren().addAll(descField, cmdField, linkField, addOptionButton);
-        addOptionPane.setPadding(new Insets(10));
+        addOptionPane.setPadding(new Insets(20));
+        addOptionPane.getStyleClass().add("vbox");
 
-        Scene addOptionScene = new Scene(addOptionPane, 400, 200);
+        Scene addOptionScene = new Scene(addOptionPane, 500, 300);
+        addOptionScene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        
         addOptionStage.setTitle("Add Option");
         addOptionStage.setScene(addOptionScene);
         addOptionStage.show();
@@ -104,7 +112,6 @@ public class Main extends Application {
 
     private void deleteOption() {
         Option selectedOption = listView.getSelectionModel().getSelectedItem();
-
         if (selectedOption == null) {
             return;
         }
@@ -137,10 +144,12 @@ public class Main extends Application {
                 String[] parts = line.split("=", 2);
                 if (parts.length == 2) {
                     Option option = optionsMap.get(parts[0]);
-                    if (option != null) {
-                        for (String link : parts[1].split(",")) {
-                            option.addLink(link.trim());
-                        }
+                    if (option == null) {
+                        option = new Option(parts[0]);
+                        optionsMap.put(option.getDescription(), option);
+                    }
+                    for (String link : parts[1].split(",")) {
+                        option.addLink(link.trim());
                     }
                 }
             }
@@ -158,12 +167,12 @@ public class Main extends Application {
 
             for (Option option : optionsMap.values()) {
                 String desc = option.getDescription();
-                for (String cmd : option.getCommands()) {
-                    cmdWriter.write(desc + "=" + cmd);
+                if (!option.getCommands().isEmpty()) {
+                    cmdWriter.write(desc + "=" + String.join(",", option.getCommands()));
                     cmdWriter.newLine();
                 }
-                for (String link : option.getLinks()) {
-                    linkWriter.write(desc + "=" + link);
+                if (!option.getLinks().isEmpty()) {
+                    linkWriter.write(desc + "=" + String.join(",", option.getLinks()));
                     linkWriter.newLine();
                 }
             }
